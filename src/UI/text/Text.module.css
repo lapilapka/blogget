@@ -1,3 +1,10 @@
+.bold {
+    font-weight: bold;
+}
+
+.medium {
+    font-weight: 500;
+}
 .center {
     text-align: center;
 }
