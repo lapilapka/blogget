@@ -7,6 +7,6 @@ export default class ComponentClass extends React.Component {
       <div className='App-header'>
 
       </div>
-    )
+    );
   }
 }
