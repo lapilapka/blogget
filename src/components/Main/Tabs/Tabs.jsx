@@ -2,7 +2,6 @@ import style from './Tabs.module.css';
 import PropTypes from 'prop-types';
 import {useEffect, useState} from 'react';
 import {assignId} from '../../utils/generateRandomId';
-// import {Text} from '../../../UI/text';
 
 import {ReactComponent as ArrrowIcon} from './img/arrow.svg';
 import {ReactComponent as TopIcon} from './img/top.svg';
@@ -14,10 +13,10 @@ import {Text} from '../../../UI/text';
 
 
 const LIST = [
-  {value: 'Главная', Icon: HomeIcon},
-  {value: 'Топ', Icon: TopIcon},
-  {value: 'Лучшие', Icon: BestIcon},
-  {value: 'Горячие', Icon: HotIcon},
+  {value: 'Главная', Icon: HomeIcon, href: '#'},
+  {value: 'Топ', Icon: TopIcon, href: '#'},
+  {value: 'Лучшие', Icon: BestIcon, href: '#'},
+  {value: 'Горячие', Icon: HotIcon, href: '#'},
 ].map(assignId);
 
 export const Tabs = () => {

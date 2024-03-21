@@ -1,43 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useContext} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {urlAuth} from '../../../API/auth';
 import {Text} from '../../../UI/text';
 
 import {ReactComponent as LoginIcon} from './img/login.svg';
-import {URL} from '../../../API/const';
 import LogoutBtn from './LogoutBtn';
+import {tokenContext} from '../../../context/tokenContext';
+import {authContext} from '../../../context/authContext';
 
-
-export const Auth = ({token, delToken}) => {
-  const [auth, setAuth] = useState({});
+export const Auth = () => {
+  const {delToken} = useContext(tokenContext);
   const [isShowLogoutBtn, setIsShowLogoutBtn] = useState(false);
+  const {auth, clearAuth} = useContext(authContext);
 
   const toggleAvatarBtn = () => {
     setIsShowLogoutBtn(!isShowLogoutBtn);
   };
 
-  useEffect(() => {
-    if (!token) return;
-    fetch(`${URL}/api/v1/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then(response => response.json())
-      .then(({name, icon_img: iconImg}) => {
-        setAuth({name, iconImg});
-      })
-      .catch(err => {
-        if (err.response.status === 401) {
-          delToken();
-          setAuth({});
-        } else {
-          console.error(err);
-          setAuth({});
-        }
-      });
-  }, [token]);
+  const logOut = () => {
+    delToken();
+    clearAuth();
+  };
+
   return (
     <div className={style.container}>
       {auth.name ? (
@@ -48,7 +33,7 @@ export const Auth = ({token, delToken}) => {
               title={auth.name}
               alt={`Аватар ${auth.name}`} />
           </button>
-          <LogoutBtn isShowLogoutBtn={isShowLogoutBtn} />
+          <LogoutBtn logOut={logOut} isShowLogoutBtn={isShowLogoutBtn} />
         </div>
   ) :
   (
