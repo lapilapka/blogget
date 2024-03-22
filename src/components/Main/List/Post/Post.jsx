@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import DeleteButton from './DeleteButton';
 import Content from './Content';
 import Rating from './Rating';
+import formatDate from '../../../utils/formatDate';
 
 export const Post = ({bestPostData}) => {
-  const {title, author, ups, thumbnail} = bestPostData;
+  const {title, author, ups, thumbnail, created} = bestPostData;
 
   return (
     <li className={style.post}>
@@ -15,6 +16,8 @@ export const Post = ({bestPostData}) => {
       <Content author={author}
         title={title} />
       <Rating ups={ups}></Rating>
+      <time className={style.date}
+        dateTime={created}>{formatDate(created)}</time>
       <DeleteButton></DeleteButton>
     </li>
   );
