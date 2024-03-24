@@ -19,7 +19,8 @@ export const useAuth = () => {
       })
       .catch(err => {
         if (err.response.status === 401) {
-          delToken();
+          console.log(err);
+          delToken('');
           setAuth({});
         } else {
           console.error(err);

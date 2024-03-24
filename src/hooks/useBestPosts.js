@@ -5,7 +5,7 @@ export const useBestPosts = () => {
   const [bestPosts, setBestPosts] = useState([]);
 
   useEffect(() => {
-    fetch(`${URL}/best/.json`)
+    fetch(`${URL}/r/science/best/.json`)
       .then(response => response.json())
       .then(json => {
         const posts = json.data.children;

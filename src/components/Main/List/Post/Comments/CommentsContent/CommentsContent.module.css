@@ -1,0 +1,23 @@
+.item {
+    margin-bottom: 20px;
+}
+
+.author {
+    margin-bottom: 10px;
+}
+
+.comment {
+    white-space: pre-line
+}
+
+.date {
+    font-size: 10px !important;
+    color: #8f8f8f;
+    margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+.item {
+        margin-bottom: 30px;
+    }
+}
