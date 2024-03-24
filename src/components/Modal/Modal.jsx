@@ -15,7 +15,7 @@ export const Modal = ({closeModal, children, isModalOpen}) => {
   };
 
   const handleEsc = e => {
-    if (!closeModal) {
+    if (isModalOpen) {
       if (e.key === 'Escape') {
         closeModal();
       }
