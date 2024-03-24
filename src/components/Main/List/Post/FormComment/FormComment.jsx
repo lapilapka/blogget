@@ -3,30 +3,37 @@ import style from './FormComment.module.css';
 import {Text} from '../../../../../UI/text';
 
 export const FormComment = () => {
-  const [isShowTextarea, setIsShowTextarea] = useState(false);
+  const [isShowForm, setIsShowForm] = useState(false);
   const textareaRef = useRef(null);
-  const handleClick = () => {
-    setIsShowTextarea(true);
+  const showForm = () => {
+    setIsShowForm(!isShowForm);
+  };
+  const handleClick = (e) => {
+    console.log(textareaRef.current.value);
   };
 
   useEffect(() => {
-    isShowTextarea && textareaRef.current.focus();
-  }, [isShowTextarea]);
+    isShowForm && textareaRef.current.focus();
+  }, [isShowForm]);
 
   return (
-    <form className={style.form}>
-      <Text As='h3'
-        size={14}
-        tsize={18}>Имя авторизованного пользователя
-      </Text>
-      {
-        isShowTextarea && <textarea ref={textareaRef}
-          className={style.textarea}></textarea>
-      }
-      <button onClick={() => handleClick()}
-        className={style.btn}>Отправить
+    <div className={style.wrapper}>
+      <button onClick={() => showForm()}
+        className={style.btn}>Показать форму
       </button>
-    </form>
+      {
+        isShowForm && <form className={style.form}><Text As='h3'
+          size={14}
+          tsize={18}>Имя авторизованного пользователя
+        </Text>
+        <textarea ref={textareaRef}
+          className={style.textarea}></textarea>
+        <button onClick={() => handleClick()}
+          className={style.btn}>Отправить
+        </button>
+        </form>
+      }
+    </div>
   );
 };
 

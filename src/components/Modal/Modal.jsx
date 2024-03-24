@@ -9,23 +9,26 @@ export const Modal = ({closeModal, children, isModalOpen}) => {
   const handleClick = e => {
     const target = e.target;
 
-    if (target === overlayRef.current) {
+    if (target === overlayRef.current || e.keyCode === 27) {
       closeModal();
     }
   };
 
-  const handleEsc = () => {
-    if (isModalOpen) {
-      closeModal();
+  const handleEsc = e => {
+    if (!closeModal) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
     }
   };
+
 
   useEffect(() => {
     document.addEventListener('click', handleClick);
     document.addEventListener('keydown', handleEsc);
     return () => {
       document.removeEventListener('click', handleClick);
-      document.removeEventListener('keydown', handleEsc);
+      document.addEventListener('keydown', handleEsc);
     };
   }, []);
 
