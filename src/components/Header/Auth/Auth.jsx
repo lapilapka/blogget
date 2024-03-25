@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {urlAuth} from '../../../API/auth';
@@ -6,14 +6,15 @@ import {Text} from '../../../UI/text';
 
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import LogoutBtn from './LogoutBtn';
-import {authContext} from '../../../context/authContext';
 import {useDispatch} from 'react-redux';
-import {deleteToken} from '../../../store';
+import {deleteToken} from '../../../store/tokenReducer';
+import {useAuth} from '../../../hooks/useAuth';
+import AuthLoader from './AuthLoader';
 
 export const Auth = () => {
   const dispatch = useDispatch();
   const [isShowLogoutBtn, setIsShowLogoutBtn] = useState(false);
-  const {auth, clearAuth} = useContext(authContext);
+  const [auth, clearAuth, loading] = useAuth();
 
   const toggleAvatarBtn = () => {
     setIsShowLogoutBtn(!isShowLogoutBtn);
@@ -26,7 +27,7 @@ export const Auth = () => {
 
   return (
     <div className={style.container}>
-      {auth.name ? (
+      {loading ? (<AuthLoader />) : auth.name ? (
         <div>
           <button onClick={toggleAvatarBtn}
             className={style.btn}>
