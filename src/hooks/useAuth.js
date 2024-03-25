@@ -7,7 +7,6 @@ export const useAuth = () => {
   const dispatch = useDispatch();
   const [auth, setAuth] = useState({});
   const token = useSelector(state => state.token);
-  console.log(useSelector(state => state.token));
   useEffect(() => {
     if (!token) return;
     fetch(`${URL}/api/v1/me`, {

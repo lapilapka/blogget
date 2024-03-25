@@ -15,6 +15,7 @@ export const FormComment = () => {
     setIsShowForm(!isShowForm);
   };
   const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(textareaRef.current.value);
   };
 
