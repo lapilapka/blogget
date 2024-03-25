@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const LogoutBtn = ({isShowLogoutBtn, delToken, logOut}) => {
   if (isShowLogoutBtn) {
     return <button className={style.logout}
-      onClick={logOut}>Test
+      onClick={logOut}>Выход
     </button>;
   }
 };

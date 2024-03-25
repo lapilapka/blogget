@@ -1,11 +1,13 @@
-import {useState, useEffect, useContext} from 'react';
+import {useState, useEffect} from 'react';
 import {URL} from '../API/const';
-import {tokenContext} from '../context/tokenContext';
+import {deleteToken} from '../store';
+import {useDispatch, useSelector} from 'react-redux';
 
 export const useAuth = () => {
+  const dispatch = useDispatch();
   const [auth, setAuth] = useState({});
-  const {token, delToken} = useContext(tokenContext);
-
+  const token = useSelector(state => state.token);
+  console.log(useSelector(state => state.token));
   useEffect(() => {
     if (!token) return;
     fetch(`${URL}/api/v1/me`, {
@@ -18,14 +20,9 @@ export const useAuth = () => {
         setAuth({name, iconImg});
       })
       .catch(err => {
-        if (err.response.status === 401) {
-          console.log(err);
-          delToken('');
-          setAuth({});
-        } else {
-          console.error(err);
-          setAuth({});
-        }
+        console.error(err);
+        dispatch(deleteToken(''));
+        setAuth({});
       });
   }, [token]);
 

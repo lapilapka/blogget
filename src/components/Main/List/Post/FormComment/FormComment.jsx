@@ -1,15 +1,25 @@
 import {useEffect, useRef, useState} from 'react';
 import style from './FormComment.module.css';
 import {Text} from '../../../../../UI/text';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateComment} from '../../../../../store';
 
 export const FormComment = () => {
+  // const store = useStore();
+  // const value = store.getState().comment;
+  const value = useSelector(state => state.comment);
+  const dispatch = useDispatch();
   const [isShowForm, setIsShowForm] = useState(false);
   const textareaRef = useRef(null);
   const showForm = () => {
     setIsShowForm(!isShowForm);
   };
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     console.log(textareaRef.current.value);
+  };
+
+  const handleChange = (e) => {
+    dispatch(updateComment(e.target.value));
   };
 
   useEffect(() => {
@@ -22,15 +32,18 @@ export const FormComment = () => {
         className={style.btn}>Показать форму
       </button>
       {
-        isShowForm && <form className={style.form}><Text As='h3'
-          size={14}
-          tsize={18}>Имя авторизованного пользователя
-        </Text>
-        <textarea ref={textareaRef}
-          className={style.textarea}></textarea>
-        <button onClick={() => handleClick()}
-          className={style.btn}>Отправить
-        </button>
+        isShowForm && <form onSubmit={handleSubmit}
+          className={style.form}><Text As='h3'
+            size={14}
+            tsize={18}>Имя авторизованного пользователя
+          </Text>
+          <textarea ref={textareaRef}
+            onChange={handleChange}
+            value={value}
+            className={style.textarea}></textarea>
+          <button
+            className={style.btn}>Отправить
+          </button>
         </form>
       }
     </div>
