@@ -4,7 +4,6 @@ import CommentsContent from './CommentsContent';
 import {useContext} from 'react';
 import {commentContext} from '../../../../../context/commentContext';
 
-
 export const Comments = () => {
   const {isLoading, comments} = useContext(commentContext);
   return (
