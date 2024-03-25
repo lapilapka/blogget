@@ -4,7 +4,7 @@ import {Text} from '../../../../../UI/text';
 import Modal from '../../../../Modal';
 import {useState} from 'react';
 import Comments from '../Comments';
-import FormComment from '../FormComment';
+import FormComment from '../Comments/FormComment';
 import {CommentContextProvider} from '../../../../../context/commentContext';
 
 export const Content = ({title, author, id}) => {
