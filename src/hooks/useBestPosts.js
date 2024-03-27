@@ -1,22 +1,12 @@
-import {useEffect, useState} from 'react';
-import {URL} from '../API/const';
-import {useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {postsRequestAsync} from '../store/posts/postsAction';
 
 export const useBestPosts = () => {
-  const token = useSelector(state => state.token.token);
-  const [bestPosts, setBestPosts] = useState([]);
-
+  const dispatch = useDispatch();
+  const bestPosts = useSelector(state => state.posts.posts);
   useEffect(() => {
-    if (!token) return;
-    fetch(`${URL}/r/science/best/.json`)
-      .then(response => response.json())
-      .then(json => {
-        const posts = json.data.children;
-        setBestPosts(posts);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    dispatch(postsRequestAsync());
   }, []);
   return [bestPosts];
 };

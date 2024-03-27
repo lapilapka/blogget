@@ -10,7 +10,7 @@ export const updateComment = comment => ({
   comment,
 });
 
-export const commentReducer = (state = initialState, action) => {
+export const formCommentReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_COMMENT:
       return {

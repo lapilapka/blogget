@@ -1,5 +1,9 @@
 .list {
     padding: 15px 0;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (min-width: 768px) {

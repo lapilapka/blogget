@@ -9,13 +9,12 @@ import LogoutBtn from './LogoutBtn';
 import {useDispatch} from 'react-redux';
 import {deleteToken} from '../../../store/tokenReducer';
 import {useAuth} from '../../../hooks/useAuth';
-import AuthLoader from './AuthLoader';
+import {Preloader} from '../../../UI/AuthLoader/Preloader';
 
 export const Auth = () => {
   const dispatch = useDispatch();
   const [isShowLogoutBtn, setIsShowLogoutBtn] = useState(false);
   const [auth, clearAuth, loading] = useAuth();
-
   const toggleAvatarBtn = () => {
     setIsShowLogoutBtn(!isShowLogoutBtn);
   };
@@ -27,7 +26,7 @@ export const Auth = () => {
 
   return (
     <div className={style.container}>
-      {loading ? (<AuthLoader />) : auth.name ? (
+      {loading ? (<Preloader size={30} />) : auth.name ? (
         <div>
           <button onClick={toggleAvatarBtn}
             className={style.btn}>

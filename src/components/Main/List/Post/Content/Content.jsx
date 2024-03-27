@@ -5,7 +5,6 @@ import Modal from '../../../../Modal';
 import {useState} from 'react';
 import Comments from '../Comments';
 import FormComment from '../Comments/FormComment';
-import {CommentContextProvider} from '../../../../../context/commentContext';
 
 export const Content = ({title, author, id}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,10 +38,8 @@ export const Content = ({title, author, id}) => {
             setIsModalOpen(false);
           }
           }>
-          <CommentContextProvider id={id}>
-            <FormComment></FormComment>
-            <Comments ></Comments>
-          </CommentContextProvider>
+          <FormComment></FormComment>
+          <Comments id={id}></Comments>
         </Modal>
       }
     </div>

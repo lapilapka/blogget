@@ -3,15 +3,14 @@ export const setToken = (token) => {
 };
 
 export const getToken = () => {
-  const token = '';
+  let token = '';
   if (location.pathname.includes('/auth')) {
-    const token = new URLSearchParams(location.hash.substring(1))
+    token = new URLSearchParams(location.hash.substring(1))
       .get('access_token');
     setToken(token);
-    return token;
   }
   if (localStorage.getItem('bearer')) {
-    setToken(localStorage.getItem('bearer'));
-    return token;
+    token = localStorage.getItem('bearer');
   }
+  return token;
 };

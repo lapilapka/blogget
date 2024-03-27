@@ -3,6 +3,7 @@
     inset: 0;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.6);
+
 }
 
 .modal {
@@ -15,6 +16,8 @@
     inset: 5%;
     border-radius: 16px;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {

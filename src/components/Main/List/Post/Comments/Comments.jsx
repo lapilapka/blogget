@@ -1,17 +1,26 @@
 import style from './Comments.module.css';
-import Loader from '../../../../Loader';
 import CommentsContent from './CommentsContent';
-import {useContext} from 'react';
-import {commentContext} from '../../../../../context/commentContext';
+import {useCommentData} from '../../../../../hooks/useCommentData';
+import PropTypes from 'prop-types';
+import {Preloader} from '../../../../../UI/AuthLoader/Preloader';
+import React from 'react';
 
-export const Comments = () => {
-  const {isLoading, comments} = useContext(commentContext);
+export const Comments = ({id}) => {
+  const [comments, status] = useCommentData(id);
   return (
     <div className={style.list}>
-      {isLoading ? <Loader /> : (<CommentsContent comments={comments} />)
+      {status === 'loading' && <Preloader size={200} />}
+      {status === 'loaded' && (
+        <>
+          <CommentsContent comments={comments} />
+        </>
+      )
       }
+      {status === 'error' && <p>Ошибка</p>}
     </div>
   );
 };
 
-
+Comments.propTypes = {
+  id: PropTypes.string
+};

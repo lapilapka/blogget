@@ -1,10 +1,9 @@
 import style from './List.module.css';
 import Post from './Post';
-import {postContext} from '../../../context/postContext';
-import {useContext} from 'react';
+import {useBestPosts} from '../../../hooks/useBestPosts';
 
 export const List = () => {
-  const {bestPosts} = useContext(postContext);
+  const [bestPosts] = useBestPosts();
   return (
     <ul className={style.list}>
       {

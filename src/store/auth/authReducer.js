@@ -1,6 +1,6 @@
 import {
   AUTH_LOGOUT, AUTH_REQUEST, AUTH_REQUEST_ERROR, AUTH_REQUEST_SUCCESS
-} from './action';
+} from './authAction';
 
 const initialState = {
   loading: false,

@@ -1,18 +1,13 @@
-import {useEffect, useState} from 'react';
-import {URL} from '../API/const';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {commentsRequestAsync} from '../store/comments/commentsAction';
+
 export const useCommentData = (id) => {
-  const [comments, setComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const comments = useSelector(state => state.comments.comments);
+  const status = useSelector(state => state.comments.status);
   useEffect(() => {
-    fetch(`${URL}/r/science/comments/${id}/.json`)
-      .then(response => response.json())
-      .then(json => {
-        setComments(json);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    dispatch(commentsRequestAsync(id));
   }, []);
-  return [comments, isLoading];
+  return [comments, status];
 };
