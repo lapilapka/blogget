@@ -5,8 +5,9 @@ import {postsRequestAsync} from '../store/posts/postsAction';
 export const useBestPosts = () => {
   const dispatch = useDispatch();
   const bestPosts = useSelector(state => state.posts.posts);
+  const loading = useSelector(state => state.posts.loading);
   useEffect(() => {
     dispatch(postsRequestAsync());
   }, []);
-  return [bestPosts];
+  return [bestPosts, loading];
 };
