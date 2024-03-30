@@ -19,9 +19,9 @@ export const commentsRequestError = (error) => ({
   error,
 });
 
-export const commentsRequestAsync = (id) => (dispatch) => {
+export const commentsRequestAsync = (id) => (dispatch, getState) => {
   dispatch(commentsRequest());
-  axios(`${URL}/r/science/comments/${id}/.json`)
+  axios(`${URL}/comments/${id}/.json`)
     .then(data => {
       dispatch(commentsRequestSuccess(data.data));
     })

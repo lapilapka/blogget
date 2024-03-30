@@ -6,8 +6,9 @@ export const useBestPosts = () => {
   const dispatch = useDispatch();
   const bestPosts = useSelector(state => state.posts.posts);
   const loading = useSelector(state => state.posts.loading);
+  const after = useSelector(state => state.posts.after);
   useEffect(() => {
     dispatch(postsRequestAsync());
   }, []);
-  return [bestPosts, loading];
+  return [bestPosts, loading, after];
 };

@@ -70,6 +70,20 @@ body {
   font-weight: 400;
   background-color: var(--grayF5);
   color: var(--black);
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 img {

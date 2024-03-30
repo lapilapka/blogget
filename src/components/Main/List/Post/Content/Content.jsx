@@ -1,29 +1,25 @@
 import style from './Content.module.css';
 import PropTypes from 'prop-types';
 import {Text} from '../../../../../UI/text';
-import Modal from '../../../../Modal';
-import {useState} from 'react';
-import Comments from '../Comments';
-import FormComment from '../Comments/FormComment';
+// import Modal from '../../../../Modal';
+// import {useState} from 'react';
+// import Comments from '../Comments';
+// import FormComment from '../Comments/FormComment';
+import {Link, useParams} from 'react-router-dom';
 
 export const Content = ({title, author, id}) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const {page} = useParams();
 
   return (
     <div className={style.content}>
       <Text
         As='h2'
         className={style.title}>
-        <Text As='a'
-          className={style.linkPost}
-          size={18}
-          tsize={24}
-          href='#post'
-          onClick={() => {
-            setIsModalOpen(true);
-          }}>
+        <Link className={style.linkPost}
+          to={`/category/${page}/post/${id}`}>
           {title}
-        </Text>
+        </Link>
       </Text>
       <Text As='a'
         size={12}
@@ -32,16 +28,6 @@ export const Content = ({title, author, id}) => {
         className={style.linkAuthor}
         href='#autor'
       >{author}</Text>
-      {
-        isModalOpen && <Modal isModalOpen={isModalOpen}
-          closeModal={() => {
-            setIsModalOpen(false);
-          }
-          }>
-          <FormComment></FormComment>
-          <Comments id={id}></Comments>
-        </Modal>
-      }
     </div>
   );
 };
