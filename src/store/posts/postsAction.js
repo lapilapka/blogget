@@ -1,15 +1,12 @@
 import axios from 'axios';
 import {URL} from '../../API/const';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {postsSlice} from './postsSlice';
 
-export const POSTS_REQUEST = 'POSTS_REQUEST';
 export const POSTS_REQUEST_SUCCESS = 'POSTS_REQUEST_SUCCESS';
 export const POSTS_REQUEST_SUCCESS_AFTER = 'POSTS_REQUEST_SUCCESS_AFTER';
-export const POSTS_REQUEST_ERROR = 'POSTS_REQUEST_ERROR';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 
-export const postsRequest = () => ({
-  type: POSTS_REQUEST,
-});
 
 export const postsRequestSuccess = (data) => ({
   type: POSTS_REQUEST_SUCCESS,
@@ -23,41 +20,36 @@ export const postsRequestSuccessAfter = (data) => ({
   after: data.after,
 });
 
-export const postsRequestError = (error) => ({
-  type: POSTS_REQUEST_ERROR,
-  error,
-});
-
 export const changePage = (page) => ({
   type: CHANGE_PAGE,
   page,
 });
 
-export const postsRequestAsync = (newPage) => (dispatch,
-    getState) => {
-  let page = getState().posts.page;
-  if (newPage) {
-    page = newPage;
-    dispatch(changePage(page));
-  }
-  const token = getState().token.token;
-  const after = getState().posts.after;
-  const loading = getState().posts.loading;
-  const isLast = getState().posts.isLast;
-
-  if (!token || loading || isLast || !page) return;
-  dispatch(postsRequest());
-  axios(
-    `${URL}/${page}/.json?limit=10&${after ? `after=${after}` : ''}`)
-    .then(data => {
-      if (after) {
-        dispatch(postsRequestSuccessAfter(data.data.data));
-      } else {
-        dispatch(postsRequestSuccess(data.data.data));
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      dispatch(postsRequestError(err.toString()));
-    });
-};
+export const postsRequestAsync = createAsyncThunk('posts/fetch',
+  (newPage, thunkAPI) => {
+    let page = thunkAPI.getState().posts.page;
+    if (newPage) {
+      page = newPage;
+      thunkAPI.dispatch(postsSlice.actions.changePage(page));
+    }
+    const token = thunkAPI.getState().token.token;
+    const after = thunkAPI.getState().posts.after;
+    const isLast = thunkAPI.getState().posts.isLast;
+    console.log(page);
+    if (!token || isLast || !page) return;
+    return axios(
+      `${URL}/${page}/.json?limit=10&${after ? `after=${after}` : ''}`)
+      .then(data => {
+        if (after) {
+          thunkAPI.dispatch(
+            postsSlice.actions.postsRequestSuccessAfter(data.data.data));
+        } else {
+          thunkAPI.dispatch(
+            postsSlice.actions.postsRequestSuccess(data.data.data));
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        thunkAPI.rejectWithValue(error.response.data.message);
+      });
+  });
