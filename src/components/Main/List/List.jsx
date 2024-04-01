@@ -38,7 +38,7 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [count, endList.current]);
+  }, [count]);
 
   const loadPosts = (page) => {
     dispatch(postsRequestAsync());
@@ -59,8 +59,8 @@ export const List = () => {
               </Post>);
           })
         }
-        {!loading && <li ref={endList}
-          className={style.end}></li>}
+        <li ref={endList}
+          className={style.end}></li>
       </ul>
       {
         count === 2 && <button className={style.btn}
