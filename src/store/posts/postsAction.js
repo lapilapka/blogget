@@ -35,7 +35,6 @@ export const postsRequestAsync = createAsyncThunk('posts/fetch',
     const token = thunkAPI.getState().token.token;
     const after = thunkAPI.getState().posts.after;
     const isLast = thunkAPI.getState().posts.isLast;
-    console.log(page);
     if (!token || isLast || !page) return;
     return axios(
       `${URL}/${page}/.json?limit=10&${after ? `after=${after}` : ''}`)
