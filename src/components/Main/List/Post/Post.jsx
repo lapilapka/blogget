@@ -9,7 +9,8 @@ import formatDate from '../../../utils/formatDate';
 
 export const Post = ({bestPostData}) => {
   const {
-    title, author, ups, thumbnail, created: date, selftext: markdown, id
+    title, author, ups, thumbnail, created: date, selftext: markdown, id,
+    is_video: isVideo
   } = bestPostData;
 
   const imgFormat = ['jpg', 'jpeg', 'png', 'svg', 'gif'];
@@ -24,6 +25,10 @@ export const Post = ({bestPostData}) => {
         return postImg;
       }
     }
+    if (isVideo) {
+      postImg = notphoto;
+      return postImg;
+    }
   });
 
   return (
@@ -31,8 +36,10 @@ export const Post = ({bestPostData}) => {
       <img className={style.img}
         src={postImg}
         alt='' />
-      <Content author={author} markdown={markdown}
-        title={title} id={id}/>
+      <Content author={author}
+        markdown={markdown}
+        title={title}
+        id={id} />
       <Rating ups={ups}></Rating>
       <time className={style.date}
         dateTime={date}>{formatDate(date)}</time>

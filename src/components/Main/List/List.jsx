@@ -22,7 +22,7 @@ export const List = () => {
     if (!bestPosts.length && loading) return;
 
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && count < 2 && bestPosts.length) {
+      if (entries[0].isIntersecting && count < 2) {
         dispatch(postsRequestAsync());
       }
     }, {
@@ -38,7 +38,7 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [count]);
+  }, [count, endList.current]);
 
   const loadPosts = (page) => {
     dispatch(postsRequestAsync());
@@ -59,8 +59,8 @@ export const List = () => {
               </Post>);
           })
         }
-        <li ref={endList}
-          className={style.end}></li>
+        {!loading && <li ref={endList}
+          className={style.end}></li>}
       </ul>
       {
         count === 2 && <button className={style.btn}
