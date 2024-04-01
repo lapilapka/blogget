@@ -3,11 +3,6 @@ import {
   postsRequestAsync
 } from './postsAction';
 
-
-export const POSTS_REQUEST_SUCCESS = 'POSTS_REQUEST_SUCCESS';
-export const POSTS_REQUEST_SUCCESS_AFTER = 'POSTS_REQUEST_SUCCESS_AFTER';
-export const CHANGE_PAGE = 'CHANGE_PAGE';
-
 const initialState = {
   posts: [],
   error: '',
@@ -25,6 +20,9 @@ export const postsSlice = createSlice({
   reducers: {
     changePage: (state, action) => {
       state.page = action.payload;
+      state.after = '';
+      state.count = state.page === action.payload ? state.count : 0;
+      state.isLast = false;
     },
     postsRequestSuccess: (state, action) => {
       state.posts = action.payload.children;

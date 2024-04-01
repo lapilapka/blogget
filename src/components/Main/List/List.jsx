@@ -22,7 +22,7 @@ export const List = () => {
     if (!bestPosts.length && loading) return;
 
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && count < 2) {
+      if (entries[0].isIntersecting && count < 2 && bestPosts.length) {
         dispatch(postsRequestAsync());
       }
     }, {
