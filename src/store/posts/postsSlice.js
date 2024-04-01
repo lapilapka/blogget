@@ -21,7 +21,7 @@ export const postsSlice = createSlice({
     changePage: (state, action) => {
       state.page = action.payload;
       state.after = '';
-      state.count = state.page === action.payload ? state.count : 0;
+      state.count = 0;
       state.isLast = false;
     },
     postsRequestSuccess: (state, action) => {
